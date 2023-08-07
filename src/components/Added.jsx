@@ -1,4 +1,5 @@
 import React from 'react';
+import Swal from 'sweetalert2';
 
 const Added = () => {
     const handleAddProduct=(event)=>{
@@ -16,8 +17,8 @@ const Added = () => {
         const details = form.details.value;
         const photo = form.photo.value;
 
-        const newProduct = { name,  price, supplier, brand, category, details, photo}
-        console.log(newProduct)
+        const newProducts = { name,  price, supplier, brand, category, details, photo}
+        console.log(newProducts)
 
         //send data to the server
         fetch('http://localhost:5000/products',{
@@ -25,11 +26,20 @@ const Added = () => {
             headers:{
                 "content-type":"application/json",
             },
-            body:JSON.stringify(newProduct)
+            body:JSON.stringify(newProducts)
         })
         .then(res => res.json())
         .then(data => {
             console.log(data)
+            if(data.insertedId){
+                Swal.fire({
+  title: 'Success!',
+  text: 'User Added Successfully',
+  icon: 'success',
+  confirmButtonText: 'Ok'
+})
+            }
+
         })
     }
     
