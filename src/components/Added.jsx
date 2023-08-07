@@ -18,6 +18,19 @@ const Added = () => {
 
         const newProduct = { name,  price, supplier, brand, category, details, photo}
         console.log(newProduct)
+
+        //send data to the server
+        fetch('http://localhost:5000/products',{
+            method:'POST',
+            headers:{
+                "content-type":"application/json",
+            },
+            body:JSON.stringify(newProduct)
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+        })
     }
     
     return (
